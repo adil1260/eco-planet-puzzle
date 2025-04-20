@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Planet Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="start-screen">
+            <h1>Welcome to Eco-Planet Puzzle!</h1>
+            <p>Test your knowledge about the environment!</p>
+            <button id="start-btn">Start Game</button>
+        </div>
+
+        <div class="quiz-screen" style="display: none;">
+            <h2>Question 1: What is an ecosystem?</h2>
+            <div class="options">
+                <button class="option">A community of living organisms interacting with each other and their environment</button>
+                <button class="option">A type of plant</button>
+                <button class="option">A kind of animal</button>
+                <button class="option">A type of rock</button>
+            </div>
+        </div>
+
+        <div class="result-screen" style="display: none;">
+            <h2>Your Final Score</h2>
+            <p id="score"></p>
+            <p id="feedback"></p>
+            <button id="restart-btn">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="background-music" loop autoplay>
+        <source src="nature-sounds.mp3" type="audio/mp3">
+    </audio>
+    <audio id="correct-sound">
+        <source src="correct.mp3" type="audio/mp3">
+    </audio>
+    <audio id="incorrect-sound">
+        <source src="incorrect.mp3" type="audio/mp3">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
