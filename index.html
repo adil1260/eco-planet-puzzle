@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eco-Planet Puzzle</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #d4f4dd, #eafaf1);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    #game-container {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .option, #submit-btn {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      border: 1px solid #68b684;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: 0.3s;
+      max-width: 80%;
+    }
+
+    .option:hover, #submit-btn:hover {
+      background: #d4f4dd;
+    }
+
+    #start-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #68b684;
+      color: white;
+      cursor: pointer;
+    }
+
+    #score {
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      width: 80%;
+      border: 1px solid #68b684;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" loop autoplay>
+    <source src="https://cdn.pixabay.com/audio/2022/10/22/audio_7223db6495.mp3" type="audio/mp3">
+  </audio>
+
+  <div id="game-container">
+    <h1>Eco-Planet Puzzle</h1>
+    <button id="start-btn">Start Game</button>
+  </div>
+
+  <script>
+    const mcQuestions = [
+      {
+        question: "What is an ecosystem?",
+        options: ["A group of mountains", "A network of living and non-living things", "Only plants in a forest", "A type of weather system"],
+        answer: 1
+      },
+      {
+        question: "Which is a biotic component?",
+        options: ["Soil", "Sunlight", "Tree", "Water"],
+        answer: 2
+      },
+      {
+        question: "Producers in an ecosystem are usually:",
+        options: ["Animals", "Fungi", "Bacteria", "Plants"],
+        answer: 3
+      },
+      {
+        question: "Which is an example of a consumer?",
+        options: ["Deer", "Sun", "Rock", "River"],
+        answer: 0
+      },
+      {
+        question: "What happens if a species goes extinct?",
+        options: ["Nothing changes", "It can affect the whole food chain", "More rain will fall", "New species appear instantly"],
+        answer: 1
+      }
+    ];
+
+    const fillInBlankQuestions = [
+      { question: "Plants produce oxygen through _______.", answer: "photosynthesis" },
+      { question: "Animals that eat only plants are called _______.", answer: "herbivores" },
+      { question: "The _______ is responsible for breaking down waste.", answer: "decomposer" },
+      { question: "Cutting down trees is known as _______.", answer: "deforestation" },
+      { question: "The variety of life in a habitat is called _______.", answer: "biodiversity" }
+    ];
+
+    let currentQuestion = 0;
+    let currentPhase = "mc"; // mc or fill
+    let score = 0;
+
+    const container = document.getElementById("game-container");
+    const startBtn = document.getElementById("start-btn");
+
+    startBtn.addEventListener("click", startGame);
+
+    function startGame() {
+      startBtn.style.display = "none";
+      showMCQuestion();
+    }
+
+    function showMCQuestion() {
+      const q = mcQuestions[currentQuestion];
+      container.innerHTML = `
+        <h2 class="question">${q.question}</h2>
+        ${q.options.map((opt, index) => `
+          <button class="option" onclick="checkMCAnswer(${index})">${opt}</button>
+        `).join("")}
+        <div id="score">Score: ${score}</div>
+      `;
+    }
+
+    function checkMCAnswer(selected) {
+      if (selected === mcQuestions[currentQuestion].answer) {
+        score += 10;
+        alert("Correct!");
+      } else {
+        alert("Oops! That's incorrect.");
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < mcQuestions.length) {
+        showMCQuestion();
+      } else {
+        currentQuestion = 0;
+        currentPhase = "fill";
+        showFillQuestion();
+      }
+    }
+
+    function showFillQuestion() {
+      const q = fillInBlankQuestions[currentQuestion];
+      container.innerHTML = `
+        <h2 class="question">${q.question}</h2>
+        <input type="text" id="user-answer" placeholder="Type your answer here"/>
+        <button id="submit-btn" onclick="checkFillAnswer()">Submit</button>
+        <div id="score">Score: ${score}</div>
+      `;
+    }
+
+    function checkFillAnswer() {
+      const input = document.getElementById("user-answer").value.trim().toLowerCase();
+      const correctAnswer = fillInBlankQuestions[currentQuestion].answer.toLowerCase();
+
+      if (input === correctAnswer) {
+        score += 10;
+        alert("Correct!");
+      } else {
+        alert("Oops! The correct answer was: " + correctAnswer);
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < fillInBlankQuestions.length) {
+        showFillQuestion();
+      } else {
+        container.innerHTML = `
+          <h2>Great job so far!</h2>
+          <p>You completed half the game.</p>
+          <p>Score: ${score}</p>
+          <p>Next levels coming soon: Word Puzzle & Visual Quiz!</p>
+          <button onclick="location.reload()">Play Again</button>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
