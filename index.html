@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Eco-Planet Puzzle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="background"></div>
+  <div class="gold-frame" id="start-screen">
+    <h1>Eco-Planet Puzzle</h1>
+    <p>Welcome to the Eco-Planet Puzzle! 🌍
+       Test your knowledge about ecosystems and the balance of nature.
+    </p>
+    <button class="start-button" onclick="startGame()">Start</button>
+  </div>
+
+  <div class="progress-bar"><div class="progress" id="progress"></div></div>
+  <div id="quiz-container" class="gold-frame" style="display:none;"></div>
+  <div id="popup"></div>
+  <img id="animal-animation" src="" width="100" height="100">
+
+  <audio id="background-music" loop>
+    <source src="nature_guitar_piano.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="sound-effect">
+    <source src="click_effect.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="animal-sound"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
